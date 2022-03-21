@@ -7,180 +7,180 @@ __lua__
 --variables
 
 function _init()
-  player={
-    sp=194,
-    x=8,
-    y=88,
-    w=16,
-    h=16,
-    hbx_w=6,
-    hbx_h=6,
-    flp=false,
-    dx=0,
-    dy=0,
-    max_dx=5,
-    max_dy=5,
-    boost=5,
-    anim=0,
-    lives=3,
-    bombs=3,
-    shooting=false,
-    invul=false
-  }
-  t=0
-  spd=1
+	player={
+		sp=194,
+		x=8,
+		y=88,
+		w=16,
+		h=16,
+		hbx_w=6,
+		hbx_h=6,
+		flp=false,
+		dx=0,
+		dy=0,
+		max_dx=5,
+		max_dy=5,
+		boost=5,
+		anim=0,
+		lives=3,
+		bombs=3,
+		shooting=false,
+		invul=false
+	}
+	t=0
+	spd=1
   
-  p_blt={}
-  p_rblt={}
+	p_blt={}
+	p_rblt={}
   
-  e_blt={}
-  e_wv_blt={}
-  e_las={}
+	e_blt={}
+	e_wv_blt={}
+	e_las={}
   
-  stars={}
+	stars={}
   
-  init_menu()
-  --map limits
-  --map_start=0
-  --map_end=296
+	init_menu()
+	--map limits
+	--map_start=0
+	--map_end=296
 end
 
 function init_menu()
-		_update60=update_menu
-		_draw=draw_menu
+	_update60=update_menu
+	_draw=draw_menu
 end
 
 function init_game()
-		_update60=update_game
-		_draw=draw_game
+	_update60=update_game
+	_draw=draw_game
 end
 -->8
 --updates and draws
 
 function update_menu()
-		if btnp(❎) then
-				init_game()
-		end
+	if btnp(❎) then
+		init_game()
+	end
 end
 
 function draw_menu()
-		cls()
-		showborder()
-		print("press ❎ to start",30,63)
+	cls()
+	showborder()
+	print("press ❎ to start",30,63)
 end
 
 function update_game()
-		u_player()
-		t=flr(time())
-		mv_stars()
-  if(t%12) then
-  		makestars()
-  		makewtars()
-  end
+	u_player()
+	t=flr(time())
+	mv_stars()
+	if(t%12) then
+	makestars()
+	makewtars()
+	end
 end
 
 function draw_game()
-		cls(129)
-		d_ui()
-		d_stars()
-		spr(player.sp,player.x,player.y,2,2)
+	cls(129)
+	d_ui()
+	d_stars()
+	spr(player.sp,player.x,player.y,2,2)
 end
 
 function d_ui()
-		showborder()
-		print("♥"..player.lives,2,2,142)
-		print("◆"..player.bombs,2,10,13)
-		print(player.y,32,10)
-		print(player.x,32,2)
-		print("time: "..t,48,2)
+	showborder()
+	print("♥"..player.lives,2,2,142)
+	print("◆"..player.bombs,2,10,13)
+	print(player.y,32,10)
+	print(player.x,32,2)
+	print("time: "..t,48,2)
 end
 
 function u_player()
-		--movement
-		player.sp=194
-		if btn(⬅️) and player.x>0 then
-				player.x-=1
-				player.sp=192
-		end
-		if btn(➡️) and player.x<112 then
-				player.x+=1
-				player.sp=196
-		end
-		if btn(⬆️) and player.y>17 then
-				player.y-=1
-		end
-		if btn(⬇️) and player.y<112 then
-				player.y+=1
-		end
-		
-		if btn(❎) then
-				cls()
-				print("✽fire✽",50,63)
-				fire()
-		end
-		
-		if btn(🅾️) then
-				bomb()		
-		end
+	--movement
+	player.sp=194
+	if btn(⬅️) and player.x>0 then
+		player.x-=1
+		player.sp=192
+	end
+	if btn(➡️) and player.x<112 then
+		player.x+=1
+		player.sp=196
+	end
+	if btn(⬆️) and player.y>17 then
+		player.y-=1
+	end
+	if btn(⬇️) and player.y<112 then
+		player.y+=1
+	end
+	
+	if btn(❎) then
+		cls()
+		print("✽fire✽",50,63)
+		fire()
+	end
+	
+	if btn(🅾️) then
+		bomb()	
+	end
 end
 -->8
 --player functions
 
 function fire()
-		print("✽fire✽",50,63)
+	print("✽fire✽",50,63)
 end
 
 function bomb()
-		print("✽bomb✽",50,63)
+	print("✽bomb✽",50,63)
 end
 -->8
 --gfx stuff
 
 function showborder()
-		rect(0,0,127,16,3)
+	rect(0,0,127,16,3)
 end
 
 function makestars()
- local b = {}
- b.sp=206
- b.x=flr(rnd(128))
- b.y=flr(rnd(5))+14
- b.dx=0
- b.dy=0.5
- add(stars,b)
+	local b = {}
+	b.sp=206
+	b.x=flr(rnd(128))
+	b.y=flr(rnd(5))+14
+	b.dx=0
+	b.dy=0.5
+	add(stars,b)
 end
 
 function makewtars()
- local b = {}
- b.sp=207
- b.x=flr(rnd(128))
- b.y=flr(rnd(5))+16
- b.dx=0
- b.dy=1
- add(stars,b)
+	local b = {}
+	b.sp=207
+	b.x=flr(rnd(128))
+	b.y=flr(rnd(5))+16
+	b.dx=0
+	b.dy=1
+	add(stars,b)
 end
 
 function d_stars()
- for b in all(stars) do
-  spr(b.sp,b.x,b.y)
- end
+	for b in all(stars) do
+	spr(b.sp,b.x,b.y)
+	end
 end
 
 
 function mv_stars()
- for b in all(stars) do
-  b.y+=b.dy+spd
-  if b.y>128 then 
-   del(stars,b)
-  end
- end
+	for b in all(stars) do
+	b.y+=b.dy+spd
+	if b.y>128 then 
+		del(stars,b)
+	end
+end
  
- for b in all(wtars) do
-  b.y+=b.dy+spd
-  if b.y>128 then 
-   del(stars,b)
-  end
- end
+for b in all(wtars) do
+	b.y+=b.dy+spd
+	if b.y>128 then 
+		del(stars,b)
+	end
+end
  
 end
 __gfx__
