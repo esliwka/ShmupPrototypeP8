@@ -73,10 +73,11 @@ function update_game()
 	t=flr(time())
 	mv_stars()
 	mv_bullets()
-	if (rnd(2)-1) then
+	--i have to change this lol
+	if rnd(6)-5>0 then
 		makestars()
 	end
-	if (rnd(10)-8) then
+	if rnd(5)-4>0 then
 	 makewtars()
 	end
 end
@@ -169,27 +170,28 @@ end
 
 function makestars()
 	local b = {}
-	b.sp=206
+	b.cl=5
 	b.x=flr(rnd(128))
-	b.y=flr(rnd(5))+14
-	b.dx=-0.5+b.x/128
+	b.y=flr(rnd(4))+17
+	b.dx=-0.25+b.x/256
 	b.dy=1-b.dx/2
 	add(stars,b)
 end
 
 function makewtars()
 	local b = {}
-	b.sp=207
+	b.cl=6
+	
 	b.x=flr(rnd(128))
 	b.y=flr(rnd(5))+14
-	b.dx=-1+b.x/64
+	b.dx=-1.5+b.x/48
 	b.dy=2-b.dx/2
 	add(stars,b)
 end
 
 function d_stars()
 	for b in all(stars) do
-	spr(b.sp,b.x,b.y)
+		circfill(b.x,b.y,0.5,b.cl)
 	end
 end
 
